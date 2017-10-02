@@ -1,95 +1,154 @@
-// Initialize app
-var myApp = new Framework7();
+// Initialize your app
+var myApp = new Framework7({
+    animateNavBackIcon:true,
+    template7Pages: true,
+    precompileTemplates: true
+});
 
-
-// If we need to use custom DOM library, let's save it to $$ variable:
+// Export selectors engine
 var $$ = Dom7;
 
-// Add view
+// Add main View
 var mainView = myApp.addView('.view-main', {
-    // Because we want to use dynamic navbar, we need to enable it for this view:
-    dynamicNavbar: true
+    // Enable dynamic Navbar
+    dynamicNavbar: true,
+    // Enable Dom Cache so we can use all inline pages
+    domCache: true
 });
 
-// Handle Cordova Device Ready Event
-$$(document).on('deviceready', function() {
-    console.log("Device is ready!");
+// @TODO Parse.com credentials
+// Setup your Parse.com applicationId and API key 
+var applicationId = 'xxx';
+var restApiKey = 'yyy';
+
+
+// Funcion to handle Cancel button on Login page
+$$('#cancel-login').on('click', function () {
+	// Clear field values
+	$$('#login-email').val('');
+	$$('#login-password').val('');
+});
+
+// Funcion to handle Submit button on Login page
+$$('#submmit-login').on('click', function () {
+    
+    var username = $$('#login-email').val();
+    var password = $$('#login-password').val();
+
+    console.log('Submit clicked');
+    console.log('username: ' +username);
+    console.log('password: ' +password);
+
+    var query = 'https://api.parse.com/1/login?username='+username+'&password='+password; 
+    myApp.showIndicator();
+
+    // Using Ajax for communication with Parse backend
+    // Note mandatory headers with credentials required
+    // by Parse. HTTP communication responses are handled
+    // in success / error callbacks
+	$$.ajax({
+		url: query,
+		headers: {"X-Parse-Application-Id":applicationId,"X-Parse-REST-API-Key":restApiKey},
+	    type: "GET",
+	    // if successful response received (http 2xx)
+	    success: function(data, textStatus ){
+	   		
+	    	// We have received response and can hide activity indicator
+	   		myApp.hideIndicator();
+		
+	   		data = JSON.parse(data);
+	   		if (!data.username) {return}
+
+	   		var username = data.username;		
+			
+			// Will pass context with retrieved user name 
+			// to welcome page. Redirect to welcome page
+			mainView.router.load({
+				template: Template7.templates.welcomeTemplate,
+				context: {
+					name: username
+				}
+			});
+	    },
+	    
+	    error: function(xhr, textStatus, errorThrown){    	
+	    	// We have received response and can hide activity indicator
+	    	myApp.hideIndicator();		
+			myApp.alert('Login was unsuccessful, please verify username and password and try again');
+
+			$$('#login-email').val('');
+			$$('#login-password').val('');
+	    }
+	});
 });
 
 
-// Now we need to run the code that will be executed only for About page.
+// Function to handle Submit button on Register page
+$$('#submmit-register').on('click', function () {
+    
+    var username = $$('#register-username').val();
+    var email = $$('#register-email').val();
+    var password = $$('#register-password').val();
 
-myApp.onPageInit('PAGENAME', function (page) {  
+    console.log('Submit clicked');
+    console.log('username: ' +username+ 'and password: '+password+ 'and email: '+email);
 
-$$.get('http://www.mobile.fasapoin.com/login', {}, function (data) {        
-        $$('#PAGEPlaceHolder').html(data);          
-    });     
+    if (!username || !password || !email){
+    	myApp.alert('Please fill in all Registration form fields');
+    	return;
+    }
+
+   	// Methods to handle speciffic HTTP response codes
+	var success201 = function(data, textStatus, jqXHR) {
+		
+		// We have received response and can hide activity indicator
+	   	myApp.hideIndicator();
+
+	   	console.log('Response body: '+data);				
+			
+		// Will pass context with retrieved user name 
+		// to welcome page. Redirect to welcome page
+		mainView.router.load({
+			template: Template7.templates.welcomeTemplate,
+			context: {
+				name: username
+			}
+		});
+	};
+
+	var notsuccess = function(data, textStatus, jqXHR) {	
+		// We have received response and can hide activity indicator
+	    myApp.hideIndicator();		
+		myApp.alert('Login was unsuccessful, please try again');
+	};
+
+    var query = 'https://api.parse.com/1/users';
+    var postdata = {};
+    postdata.username = username;
+    postdata.password = password;
+    postdata.email = email;
+
+    myApp.showIndicator();
+
+    // Using Ajax for communication with Parse backend
+    // Note mandatory headers with credentials required
+    // by Parse. HTTP communication responses are handled
+    // based on HTTP response codes
+	$$.ajax({
+		url: query,
+		headers: {"X-Parse-Application-Id":applicationId,"X-Parse-REST-API-Key":restApiKey},
+	    type: "POST",
+	    contentType: "application/json",
+	    data: JSON.stringify(postdata),
+
+	    statusCode: {
+	    	201: success201,
+	    	400: notsuccess,
+	    	500: notsuccess
+	    }
+	});
+
 });
-
-// Option 1. Using page callback for page (for "about" page in this case) (recommended way):
-myApp.onPageInit('about', function (page) {
-    // Do something here for "about" page
-
-})
-
-myApp.onPageInit('login', function (page) {
-    // Do something here for "about" page
-
-
-})
-myApp.onPageInit('register', function (page) {
-    // Do something here for "about" page
-
-
-})
-
-
-$$('.form-to-data').on('click', function(){
-  var formData = myApp.formToData('#my-form');
-  alert(JSON.stringify(formData));
-}); 
-
-/*$$('.get-storage-data').on('click', function() {
-  var storedData = myApp.formGetData('my-form2');
-  if(storedData) {
-    alert(JSON.stringify(storedData));
-  }
-  else {
-    alert('There is no stored data for this form yet. Try to change any field')
-  }
-});*/
-
- 
-
-// $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
-//     // Following code will be executed for page with data-page attribute equal to "about"
-//     myApp.alert('Here comes About page');
-// })
-
-
-
-
-
-
-
-// Option 2. Using one 'pageInit' event handler for all pages:
-$$(document).on('pageInit', function (e) {
-    // Get page data from event data
-    var page = e.detail.page;
-
-    // if (page.name === 'about') {
-    //     // Following code will be executed for page with data-page attribute equal to "about"
-    //     myApp.alert('Here comes About page');
-    // }
-})
-
-// Option 2. Using live 'pageInit' event handlers for each page
-// $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
-//     // Following code will be executed for page with data-page attribute equal to "about"
-//     myApp.alert('Here comes About page');
-// })
-
-
 
 
 

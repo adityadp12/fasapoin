@@ -1,96 +1,275 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
-
-    <!-- Required meta tags-->
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="silver">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-
-    <!-- Your app title -->
-    <title>Fasapoin</title>
-
-    <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
-        http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
-     -->
-
-    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">
-    <link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">
-
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
-    <!-- Status bar overlay for full screen mode (PhoneGap) -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>HTMLCenter</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="css/framework7/framework7.min.css">
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/my-app.css">
+  </head>
+  <body>
+    <!-- Status bar overlay for fullscreen mode-->
     <div class="statusbar-overlay"></div>
-
     <!-- Panels overlay-->
     <div class="panel-overlay"></div>
     <!-- Left panel with reveal effect-->
-    <!-- <div class="panel panel-left panel-reveal">
-        <div class="content-block">
-            <p>Left panel content goes here</p>
-        </div>
-    </div> -->
-
-    <!-- Views -->
-    <div class="views">
-        <!-- Your main view, should have "view-main" class -->
-        <div class="view view-main">
-            <!-- Top Navbar-->
-            <div class="navbar">
-                <div class="navbar-inner">
-                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                    <div class="center sliding">Fasapoin</div>
-                    <div class="right">
-                        <!--
-                          Right link contains only icon - additional "icon-only" class
-                          Additional "open-panel" class tells app to open panel when we click on this link
-                        -->
-                       <!--  <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a> -->
-                    </div>
-                </div>
-            </div>
-            <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
-            
-            <div class="pages navbar-through toolbar-through">
-                <div data-page="index" class="page">
-                    <div class="page-content">
-                        <div class="content-block">
-                            <iframe src="http://www.mobile.fasapoin.com/login"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Bottom Toolbar-->
-            <div class="toolbar">
-                <div class="toolbar-inner">
-                    <a href="ifame.html" class="link">Register</a>
-                    <a href="login.html" class="link">Login</a>
-                </div>
-            </div>
-        </div>
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block">
+        <p>Left pannel can have custom content.<br />
+          Another line<br />
+          Yet another line<br />
+          </p>
+      </div>
     </div>
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover">
+      <div class="content-block">
+        <p>Right pannel can have custom content.<br />
+        Another line<br />
+        Yet another line<br />
+        </p>
+      </div>
+    </div>
+    <!-- Views-->
+    <div class="views">
+      <!-- Your main view, should have "view-main" class-->
+      <div class="view view-main">
+        <!-- Top Navbar-->
+        <div class="navbar">
+          <!-- Navbar inner for Index page-->
+          <div data-page="index" class="navbar-inner">
+            <!-- We have home navbar without left link-->
+            <div class="center sliding">Tutorial</div>
+            <div class="right">
+              <!-- Right link contains only icon - additional "icon-only" class-->
+              <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+            </div>
+          </div>
+          
+        </div>
+        <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+        <div class="pages navbar-through toolbar-through">
+          <!-- Index Page-->
+          <div data-page="index" class="page">
+            <!-- Scrollable page content-->
+            <div class="page-content">
+              <div class="content-block-title">Example Application</div>
+              <div class="content-block">
+                <div class="content-block-inner">
+                  <p>Very simple HTML5 mobile web app.</p>
+                  <p>With the help of Framework7.<br />
+                  Framework7 has bunch of pre built generic UI elements</p>
+                </div>
+              </div>
+              <div class="content-block-title">Example Menu</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <a href="#register" class="item-link">
+                      <div class="item-content"> 
+                        <div class="item-inner">
+                          <div class="item-title">Register</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#form" class="item-link">
+                      <div class="item-content"> 
+                        <div class="item-inner">
+                          <div class="item-title">Login</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#about" class="item-link">
+                      <div class="item-content">
+                        <div class="item-inner"> 
+                          <div class="item-title">About</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              
+            </div>
+          </div>
+          <!-- About Page-->
+          <div data-page="about" class="page cached">
+            <div class="page-content">
+              <div class="content-block">
+                <p>
+                In order to go back to main page, you can click <strong>Back</strong> button on the left side of Top menu.<br />
+                Or simply use this link to <a href="#" class="back">go back</a>.</p>
+                <p>
+                In fact you can load any page from this application, with the simple HTML link. <a href="#form">Load login page</a>.</p>
 
-    <script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel commodo massa, eu adipiscing mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus ultricies dictum neque, non varius tortor fermentum at. Curabitur auctor cursus imperdiet. Nam molestie nisi nec est lacinia volutpat in a purus. Maecenas consectetur condimentum viverra. Donec ultricies nec sem vel condimentum. Phasellus eu tincidunt enim, sit amet convallis orci. Vestibulum quis fringilla dolor.</p>
+
+                <p>Thanks,<br />
+                HTMLCenter team</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Welcome Page-->
+          <script id="welcomeTemplate" type="text/template7">
+            <div data-page="welcome" class="page cached">
+              <div class="page-content">
+                <div class="content-block">
+                  <p>Hi, {{name}}, welcome to Framework7 application on HTMLCenter!</p>
+                  <p>You are now loged in and can navigate accross personal pages in this application.</p>
+                  <p>Thanks to Parse for holding all your data, so this app doesnt have to do it!</p>
+
+                  <p>Cheers,<br />
+                  HTMLCenter</p>
+                </div>
+              </div>
+            </div>
+          </script>
+
+          
+          <!-- Register Page-->
+          <div data-page="register" class="page cached">
+            <div class="page-content">
+              <div class="content-block">
+                <p>
+                Please Register to HTMLCenter<br />
+                Once your account is succesfully registered, you can automatically access all the amazing tutorials, and books this site has to offer.<br /></p>
+              </div>
+              
+
+              <div class="content-block-title"></div>
+              <div class="list-block">
+                <ul>                  
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-name"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Username</div>
+                        <div class="item-input">
+                          <input id="register-username" type="email" placeholder="Username">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-email"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">E-mail</div>
+                        <div class="item-input">
+                          <input id="register-email" type="email" placeholder="E-mail">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-password"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Password</div>
+                        <div class="item-input">
+                          <input id="register-password" type="password" placeholder="Password">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+              
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-50">
+                    <input id="cancel-register" type="submit" value="Cancel" class="button button-big button-fill color-red">
+                  </div>
+                  <div class="col-50">
+                    <input id="submmit-register" type="submit" value="Submit" class="button button-big button-fill color-green">
+                  </div>
+                </div>
+              </div>   
+
+            </div>
+          </div>
+
+
+
+
+
+          <!-- Form Page-->
+          <div data-page="form" class="page cached">
+            <div class="page-content">
+              <div class="content-block">
+                <p>
+                Please login to HTMLCenter app.<br />
+                Once authenticated, you can access all the amazing tutorials, and books this site has to offer.<br /></p>
+              </div>
+              
+
+              <div class="content-block-title"></div>
+              <div class="list-block">
+                <ul>                  
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-email"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">E-mail</div>
+                        <div class="item-input">
+                          <input id="login-email" type="email" placeholder="E-mail">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  
+                  <li>
+                    <div class="item-content">
+                      <div class="item-media"><i class="icon icon-form-password"></i></div>
+                      <div class="item-inner"> 
+                        <div class="item-title label">Password</div>
+                        <div class="item-input">
+                          <input id="login-password" type="password" placeholder="Password">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                
+                </ul>
+              </div>
+              
+              <div class="content-block">
+                <div class="row">
+                  <div class="col-50">
+                    <input id="cancel-login" type="submit" value="Cancel" class="button button-big button-fill color-red">
+                  </div>
+                  <div class="col-50">
+                    <input id="submmit-login" type="submit" value="Submit" class="button button-big button-fill color-green">
+                  </div>
+                </div>
+              </div>  
+
+            </div>
+          </div>
+        </div>
+        <!-- Bottom Toolbar-->
+        <!--
+        <div class="toolbar">
+          <div class="toolbar-inner"><a href="#" class="link">Bottom Toolbar y</a><a href="#" class="link">Bottom Toolbar x</a></div>
+        </div> -->
+
+      </div>
+    </div>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="js/framework7/framework7.min.js"></script>
+    <!-- Path to your app js-->
     <script type="text/javascript" src="js/my-app.js"></script>
-    <script type="text/javascript" src="js/progress-bar.js"></script>
-</body>
-
+  </body>
 </html>
