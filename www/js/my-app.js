@@ -25,19 +25,64 @@ myApp.onPageInit('about', function (page) {
 
 })
 
+myApp.onPageInit('login', function (page) {
+    // Do something here for "about" page
+
+
+})
+myApp.onPageInit('register', function (page) {
+    // Do something here for "about" page
+
+
+})
+
+
+$$('.form-to-data').on('click', function(){
+  var formData = myApp.formToData('#my-form');
+  alert(JSON.stringify(formData));
+}); 
+
+/*$$('.get-storage-data').on('click', function() {
+  var storedData = myApp.formGetData('my-form2');
+  if(storedData) {
+    alert(JSON.stringify(storedData));
+  }
+  else {
+    alert('There is no stored data for this form yet. Try to change any field')
+  }
+});*/
+
+ 
+
+// $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
+//     // Following code will be executed for page with data-page attribute equal to "about"
+//     myApp.alert('Here comes About page');
+// })
+
+
+
+
+
+
+
 // Option 2. Using one 'pageInit' event handler for all pages:
 $$(document).on('pageInit', function (e) {
     // Get page data from event data
     var page = e.detail.page;
 
-    if (page.name === 'about') {
-        // Following code will be executed for page with data-page attribute equal to "about"
-        myApp.alert('Here comes About page');
-    }
+    // if (page.name === 'about') {
+    //     // Following code will be executed for page with data-page attribute equal to "about"
+    //     myApp.alert('Here comes About page');
+    // }
 })
 
 // Option 2. Using live 'pageInit' event handlers for each page
-$$(document).on('pageInit', '.page[data-page="about"]', function (e) {
-    // Following code will be executed for page with data-page attribute equal to "about"
-    myApp.alert('Here comes About page');
-})
+// $$(document).on('pageInit', '.page[data-page="about"]', function (e) {
+//     // Following code will be executed for page with data-page attribute equal to "about"
+//     myApp.alert('Here comes About page');
+// })
+
+
+
+
+
